@@ -1,0 +1,544 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "AlreadyVoted",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "EmptyOption",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "EmptyTitle",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "InvalidOption",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "InvalidOptionsCount",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotPollCreator",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "PollAlreadyFinished",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "PollInactive",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "PollNotFound",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "pollId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "PollCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "pollId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "PollFinished",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "pollId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "optionIndex",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "VoteRegistered",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_title",
+						"type": "string"
+					},
+					{
+						"internalType": "string[]",
+						"name": "_options",
+						"type": "string[]"
+					}
+				],
+				"name": "createPoll",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					}
+				],
+				"name": "finishPoll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					}
+				],
+				"name": "getAllPollOptions",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "descriptions",
+						"type": "string[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "voteCounts",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					}
+				],
+				"name": "getPollInfo",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "isActive",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "optionsCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "createdAt",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_optionIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "getPollOption",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "voteCount",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					}
+				],
+				"name": "getPollResults",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "descriptions",
+						"type": "string[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "voteCounts",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "percentages",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTotalPolls",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_creator",
+						"type": "address"
+					}
+				],
+				"name": "getUserPolls",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_voter",
+						"type": "address"
+					}
+				],
+				"name": "getVoterChoice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_voter",
+						"type": "address"
+					}
+				],
+				"name": "hasUserVoted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_optionIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "vote",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"author": "Your Name",
+			"details": "A smart contract for creating and managing decentralized polls",
+			"kind": "dev",
+			"methods": {
+				"createPoll(string,string[])": {
+					"details": "Creates a new poll",
+					"params": {
+						"_options": "Array of voting options (2-6 options allowed)",
+						"_title": "The title of the poll"
+					}
+				},
+				"finishPoll(uint256)": {
+					"details": "Finish a poll (only creator can call this)",
+					"params": {
+						"_pollId": "The ID of the poll to finish"
+					}
+				},
+				"getAllPollOptions(uint256)": {
+					"details": "Get all options for a poll",
+					"params": {
+						"_pollId": "The ID of the poll"
+					},
+					"returns": {
+						"descriptions": "Array of option descriptions",
+						"voteCounts": "Array of vote counts for each option"
+					}
+				},
+				"getPollInfo(uint256)": {
+					"details": "Get basic poll information",
+					"params": {
+						"_pollId": "The ID of the poll"
+					},
+					"returns": {
+						"createdAt": "Timestamp when poll was created",
+						"creator": "The poll creator address",
+						"isActive": "Whether the poll is active",
+						"optionsCount": "Number of voting options",
+						"title": "The poll title",
+						"totalVotes": "Total number of votes cast"
+					}
+				},
+				"getPollOption(uint256,uint256)": {
+					"details": "Get specific poll option details",
+					"params": {
+						"_optionIndex": "The index of the option",
+						"_pollId": "The ID of the poll"
+					},
+					"returns": {
+						"description": "The option description",
+						"voteCount": "Number of votes for this option"
+					}
+				},
+				"getPollResults(uint256)": {
+					"details": "Get poll results with percentages",
+					"params": {
+						"_pollId": "The ID of the poll  "
+					},
+					"returns": {
+						"descriptions": "Array of option descriptions",
+						"percentages": "Array of vote percentages (scaled by 100)",
+						"voteCounts": "Array of vote counts"
+					}
+				},
+				"getTotalPolls()": {
+					"details": "Get the total number of polls created",
+					"returns": {
+						"_0": "The total poll count"
+					}
+				},
+				"getUserPolls(address)": {
+					"details": "Get polls created by a specific user",
+					"params": {
+						"_creator": "The address of the creator"
+					},
+					"returns": {
+						"_0": "Array of poll IDs created by the user"
+					}
+				},
+				"getVoterChoice(uint256,address)": {
+					"details": "Get the choice made by a voter",
+					"params": {
+						"_pollId": "The ID of the poll",
+						"_voter": "The address of the voter"
+					},
+					"returns": {
+						"_0": "The option index chosen by the voter"
+					}
+				},
+				"hasUserVoted(uint256,address)": {
+					"details": "Check if an address has voted on a specific poll",
+					"params": {
+						"_pollId": "The ID of the poll",
+						"_voter": "The address to check"
+					},
+					"returns": {
+						"_0": "Whether the address has voted"
+					}
+				},
+				"vote(uint256,uint256)": {
+					"details": "Vote on a specific poll option",
+					"params": {
+						"_optionIndex": "The index of the chosen option",
+						"_pollId": "The ID of the poll"
+					}
+				}
+			},
+			"title": "Pollify - Decentralized Polling System",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/VotingCore.sol": "Polls"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/VotingCore.sol": {
+			"keccak256": "0x65ced88cb1216ceaaf6b96756b9fdf81edd04c20bd1580991f5b047a2859e0da",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://df7eb9b8466e07641207ef648b2d33f304cfdabdd0b3ebaa818bb1a33fe6c4d4",
+				"dweb:/ipfs/QmcchFTQpGU1ZfzcMDtx1pkSEeEEcE7pqYWbXVFXBhMQ7C"
+			]
+		}
+	},
+	"version": 1
+}
